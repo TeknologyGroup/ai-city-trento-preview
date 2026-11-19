@@ -17,6 +17,7 @@
     catch (_) { error('Non è stato possibile completare questa azione. Torna a una schermata disponibile o ripristina la demo.'); }
   };
   const go = (name, params = {}) => {
+    if (app.cityMap) app.cityMap.destroyReal();
     const handler = routes.get(name);
     if (!handler) { error('Questa schermata non è disponibile nella demo.'); return; }
     current = { name, params };

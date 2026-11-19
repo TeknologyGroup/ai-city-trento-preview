@@ -3,20 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; frame-src https://www.openstreetmap.org; img-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'self' https://tile.openstreetmap.org; object-src 'none'; base-uri 'none'; form-action 'none'">
   <meta name="robots" content="noindex, nofollow">
   <meta name="referrer" content="no-referrer">
   <title>AI CITY — Trento 0.4.0</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=a78371028241">
   <link rel="stylesheet" href="css/themes.css?v=1bc61b730424">
-  <link rel="stylesheet" href="css/styles.css?v=6febc2f76718">
+  <link rel="stylesheet" href="css/styles.css?v=4cbe241a34bc">
+  <script defer src="vendor/leaflet/leaflet.js?v=85d455b45224"></script>
   <script defer src="js/demo-data.js?v=3ddd07dd8bb1"></script>
   <script defer src="js/themes/cities.js?v=68f220bba441"></script>
   <script defer src="js/state.js?v=ad04cb5efa0e"></script>
   <script defer src="js/content.js?v=b225b4b168ef"></script>
   <script defer src="js/ui.js?v=42a8a1e8aa17"></script>
-  <script defer src="js/navigation.js?v=fcdbf64fbb69"></script>
+  <script defer src="js/navigation.js?v=549a9f545bbd"></script>
   <script defer src="js/adapters/services.js?v=25bae5fc5af2"></script>
-  <script defer src="js/components/city-map.js?v=3a3606fb1470"></script>
+  <script defer src="js/components/city-map.js?v=29659e75aa56"></script>
   <script defer src="js/modules/catalog.js?v=6a6b7be026e2"></script>
   <script defer src="js/modules/editorial.js?v=5b3445614625"></script>
   <script defer src="js/modules/home.js?v=97c25fdfb9ae"></script>
