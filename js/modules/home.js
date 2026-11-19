@@ -24,6 +24,7 @@
       event.preventDefault();app.state.filters.query = input.value;app.state.filters.category = '';app.navigation.go('catalog');
     });
     hero.append(search);main.append(hero);
+    actions(main, button('Apri Life Planner', () => app.navigation.go('planner'), true), button('City Map · Trento', () => app.navigation.go('places')));
     const categories = node('section', undefined, 'home-categories');categories.setAttribute('aria-labelledby', 'categories-title');
     const categoriesTitle = node('h2', 'Come vuoi esplorare?', 'sr-only');categoriesTitle.id = 'categories-title';categories.append(categoriesTitle);
     const grid = node('div', undefined, 'category-grid');
@@ -50,7 +51,7 @@
       append(card, art, body);cards.append(card);
     });
     featured.append(cards);main.append(featured);
-    const notice = node('section', undefined, 'scenario-panel');append(notice, node('h2', 'Uno scenario dimostrativo'), node('p', 'Tutti i dati sono fittizi. La mappa non è geografica, le verifiche e i collegamenti sono simulati. Nessuna bandiera o immagine ufficiale è rappresentata.'));main.append(notice);
+    const notice = node('section', undefined, 'scenario-panel');append(notice, node('h2', 'Uno scenario dimostrativo'), node('p', 'Schede e offerte sono fittizie. La cartografia OpenStreetMap è reale e separata dai luoghi DEMO senza coordinate; verifiche e contatti commerciali sono simulati. Nessuna bandiera o immagine ufficiale è rappresentata.'));main.append(notice);
     const manage = button('Gestione demo →', () => app.navigation.go('editorial'));manage.classList.add('management-link');main.append(manage);
     main.append(node('p', 'Simulazione editoriale senza autenticazione. Le modifiche restano solo nella pagina.', 'management-note'));
     title.focus();

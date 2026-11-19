@@ -193,3 +193,8 @@ footer { border-top:1px solid var(--line);color:var(--muted); }.footer-top { dis
 @media(max-width:700px) { .header-inner { gap:.65rem;flex-wrap:nowrap; }.brand { font-size:1.7rem; }.city-control { padding-left:.65rem; }.city-control select { font-size:1.25rem;max-width:105px; }.compact-menu nav { width:auto; }.hero > .lead { max-width:30ch;font-size:1rem; }.hero .landscape { top:2.5rem;width:56%;opacity:.3; }.featured-grid { gap:.7rem; }.merchant-art { height:135px; }.featured-body { padding:.8rem; }.featured-body h3 { font-size:1.2rem; }.featured-body p { font-size:.82rem; }.category-grid { gap:.5rem; }.category-tile { min-height:125px;border-radius:20px; }.category-name { font-size:.8rem; }.section-heading button { font-size:.8rem; } }
 @media(max-width:350px) { .brand { font-size:1.5rem; }.territory-symbol { display:none; }.city-control select { max-width:90px; }.category-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.featured-grid { grid-template-columns:1fr; }.hero h1 { font-size:2.2rem; }.home-search { padding:.8rem; }.home-search button { padding:.6rem; } }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important;animation:none !important;scroll-behavior:auto !important; } }
+
+/* C35: superficie cartografica esterna, nessuna modifica ai token del design. */
+.geo-section { margin:1rem 0 2rem;padding:1rem;border:1px solid var(--line);border-radius:var(--radius-panel);background:var(--paper); }
+.geo-frame { display:block;width:100%;height:24rem;max-height:65vh;border:1px solid var(--line);border-radius:1rem;margin-top:1rem; }
+.geo-section a { color:var(--ink);text-decoration:underline;overflow-wrap:anywhere; }

@@ -4,7 +4,10 @@
   const nav = app.navigation, data = app.content;
   const filters = { query: '', category: '', selectedId: null };
   function places() {
-    const main = page('Luoghi da esplorare', 'City Map · luoghi DEMO');
+    const main = page('Luoghi da esplorare', 'City Map · Trento e luoghi DEMO');
+    main.append(app.cityMap.geographic());
+    actions(main, button('Apri Life Planner', () => nav.go('planner')));
+    main.append(node('h2', 'Luoghi DEMO senza coordinate'));
     main.append(node('p', 'Luoghi inventati: nessuna posizione reale, nessuna geolocalizzazione. Elenco e schema offrono le stesse schede.', 'lead'));
     const form = node('form', undefined, 'filters');form.setAttribute('role', 'search');form.setAttribute('aria-label', 'Ricerca luoghi dimostrativi');
     const searchBox = node('div'), categoryBox = node('div');append(form, searchBox, categoryBox);
@@ -44,9 +47,11 @@
     const main = page('Il tuo piano dimostrativo', 'Life Planner · logica deterministica');
     append(main, node('p', 'Organizza fino a 12 tappe fittizie. Gli orari sono scelti da te: nessun calcolo di tragitto, durata, apertura o disponibilità. Nessuna AI generativa.', 'lead'), node('p', 'Stato solo nella memoria della pagina. Nessun salvataggio permanente o dato personale; il ricaricamento cancella il piano.'));
     if (message) {const feedback = node('p', message, 'feedback');feedback.setAttribute('role', 'status');main.append(feedback);announce(message);}
-    const choices = [...data.search().records.map(r => ({kind: 'place', record: r})), ...app.state.published().map(r => ({kind: 'merchant', record: r}))];
+    const planned = data.planner.all();
+    const choices = [...data.search().records.map(r => ({kind: 'place', record: r})), ...app.state.published().map(r => ({kind: 'merchant', record: r}))].filter(choice => !planned.some(step => step.kind === choice.kind && step.targetId === choice.record.id));
     const form = node('form');const select = field(form, 'planner-target', 'Scegli una tappa DEMO', node('select'));
     choices.forEach((choice,index) => {const option = node('option', choice.record.name + ' · ' + (choice.kind === 'place' ? 'luogo' : 'merchant'));option.value = String(index);select.append(option);});select.value = '0';
+    if (!choices.length) main.append(node('p', 'Tutte le tappe disponibili sono già nel piano. Puoi modificarle o rimuoverle sotto.', 'feedback'));
     const time = field(form, 'planner-time', 'Orario scelto da te (facoltativo)', node('input'));time.type = 'time';
     const submit = node('button', 'Aggiungi tappa', 'primary');submit.type = 'submit';submit.disabled = choices.length === 0;form.append(submit);
     form.addEventListener('submit', event => {event.preventDefault();const choice = choices[Number(select.value)];try {if (!choice) throw new Error('Scegli una tappa disponibile.');data.planner.add(choice.kind, choice.record.id, time.value);nav.go('planner', {message: 'Tappa aggiunta.'});}catch(error){nav.go('planner', {message: error.message});}});main.append(form);
@@ -55,7 +60,7 @@
     const list = node('ol');
     steps.forEach((step,index) => {
       const item = node('li', undefined, 'card'), label = step.record?.name || 'Tappa non più disponibile';
-      append(item, node('h2', label), node('p', step.available ? 'DEMO · nessuna prenotazione' : 'Scheda sospesa o non disponibile', 'badge'));
+      append(item, node('h2', label), node('p', step.available ? 'DEMO · senza coordinate · nessuna prenotazione' : 'Scheda sospesa o non disponibile', 'badge'));
       const edit = field(item, 'step-time-' + step.id, 'Orario per ' + label, node('input'));edit.type = 'time';edit.value = step.time;
       const up = button('Sposta su: ' + label, () => {data.planner.move(step.id, -1);nav.go('planner', {message: 'Ordine aggiornato.'});});up.disabled = index === 0;
       const down = button('Sposta giù: ' + label, () => {data.planner.move(step.id, 1);nav.go('planner', {message: 'Ordine aggiornato.'});});down.disabled = index === steps.length - 1;
